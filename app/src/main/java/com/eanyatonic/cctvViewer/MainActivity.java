@@ -61,33 +61,86 @@ public class MainActivity extends AppCompatActivity {
     private int currentWebView = 0; // 正在使用的webView
     private boolean isChanging = false; // 是否正在换台
 
-    private final String[] liveUrls = { "https://tv.cctv.com/live/cctv1/", "https://tv.cctv.com/live/cctv2/",
-            "https://tv.cctv.com/live/cctv3/", "https://tv.cctv.com/live/cctv4/", "https://tv.cctv.com/live/cctv5/",
-            "https://tv.cctv.com/live/cctv6/", "https://tv.cctv.com/live/cctv7/", "https://tv.cctv.com/live/cctv8/",
-            "https://tv.cctv.com/live/cctvjilu", "https://tv.cctv.com/live/cctv10/", "https://tv.cctv.com/live/cctv11/",
-            "https://tv.cctv.com/live/cctv12/", "https://tv.cctv.com/live/cctv13/",
-            "https://tv.cctv.com/live/cctvchild", "https://tv.cctv.com/live/cctv15/",
-            "https://tv.cctv.com/live/cctv16/", "https://tv.cctv.com/live/cctv17/",
-            "https://tv.cctv.com/live/cctv5plus/", "https://tv.cctv.com/live/cctveurope",
-            "https://tv.cctv.com/live/cctvamerica/", "https://www.yangshipin.cn/tv/home?pid=600002309",
-            "https://www.yangshipin.cn/tv/home?pid=600002521", "https://www.yangshipin.cn/tv/home?pid=600002483",
-            "https://www.yangshipin.cn/tv/home?pid=600002520", "https://www.yangshipin.cn/tv/home?pid=600002475",
-            "https://www.yangshipin.cn/tv/home?pid=600002508", "https://www.yangshipin.cn/tv/home?pid=600002485",
-            "https://www.yangshipin.cn/tv/home?pid=600002509", "https://www.yangshipin.cn/tv/home?pid=600002498",
-            "https://www.yangshipin.cn/tv/home?pid=600002506", "https://www.yangshipin.cn/tv/home?pid=600002531",
-            "https://www.yangshipin.cn/tv/home?pid=600002481", "https://www.yangshipin.cn/tv/home?pid=600002516",
-            "https://www.yangshipin.cn/tv/home?pid=600002525", "https://www.yangshipin.cn/tv/home?pid=600002484",
-            "https://www.yangshipin.cn/tv/home?pid=600002490", "https://www.yangshipin.cn/tv/home?pid=600002503",
-            "https://www.yangshipin.cn/tv/home?pid=600002505", "https://www.yangshipin.cn/tv/home?pid=600002532",
-            "https://www.yangshipin.cn/tv/home?pid=600002493", "https://www.yangshipin.cn/tv/home?pid=600002513", };
+        private final String[] liveUrls = { "https://tv.cctv.com/live/cctv1", "https://tv.cctv.com/live/cctv2", 
+            "https://tv.cctv.com/live/cctv3", "https://tv.cctv.com/live/cctv4", "https://tv.cctv.com/live/cctv5", 
+            "https://tv.cctv.com/live/cctv5plus", "https://tv.cctv.com/live/cctv6", "https://tv.cctv.com/live/cctv7", 
+            "https://tv.cctv.com/live/cctv8", "https://tv.cctv.com/live/cctvjilu", "https://tv.cctv.com/live/cctv10", 
+            "https://tv.cctv.com/live/cctv11", "https://tv.cctv.com/live/cctv12", "https://tv.cctv.com/live/cctv13", 
+            "https://tv.cctv.com/live/cctvchild", "https://tv.cctv.com/live/cctv15", "https://tv.cctv.com/live/cctv16", 
+            "https://tv.cctv.com/live/cctv17", "https://tv.cctv.com/live/cctveurope", "https://tv.cctv.com/live/cctvamerica", 
+            "https://www.yangshipin.cn/tv/home?pid=600002264", "https://www.yangshipin.cn/tv/home?pid=600099658", 
+            "https://www.yangshipin.cn/tv/home?pid=600099655", "https://www.yangshipin.cn/tv/home?pid=600099620", 
+            "https://www.yangshipin.cn/tv/home?pid=600002309", "https://www.yangshipin.cn/tv/home?pid=600002521", 
+            "https://www.yangshipin.cn/tv/home?pid=600002483", "https://www.yangshipin.cn/tv/home?pid=600002520", 
+            "https://www.yangshipin.cn/tv/home?pid=600002475", "https://www.yangshipin.cn/tv/home?pid=600002508", 
+            "https://www.yangshipin.cn/tv/home?pid=600002485", "https://www.yangshipin.cn/tv/home?pid=600002509", 
+            "https://www.yangshipin.cn/tv/home?pid=600002498", "https://www.yangshipin.cn/tv/home?pid=600002506", 
+            "https://www.yangshipin.cn/tv/home?pid=600002531", "https://www.yangshipin.cn/tv/home?pid=600002481", 
+            "https://www.yangshipin.cn/tv/home?pid=600002516", "https://www.yangshipin.cn/tv/home?pid=600002525", 
+            "https://www.yangshipin.cn/tv/home?pid=600002484", "https://www.yangshipin.cn/tv/home?pid=600002490", 
+            "https://www.yangshipin.cn/tv/home?pid=600002503", "https://www.yangshipin.cn/tv/home?pid=600002505", 
+            "https://www.yangshipin.cn/tv/home?pid=600002532", "https://www.yangshipin.cn/tv/home?pid=600002493", 
+            "https://www.yangshipin.cn/tv/home?pid=600002513", "https://www.gdtv.cn/tvChannelDetail/43", 
+            "https://www.gdtv.cn/tvChannelDetail/44", "https://www.gdtv.cn/tvChannelDetail/45", "https://www.gdtv.cn/tvChannelDetail/48", 
+            "https://www.gdtv.cn/tvChannelDetail/47", "https://www.gdtv.cn/tvChannelDetail/51", "https://www.gdtv.cn/tvChannelDetail/46", 
+            "https://www.gdtv.cn/tvChannelDetail/49", "https://www.gdtv.cn/tvChannelDetail/53", "https://www.gdtv.cn/tvChannelDetail/16", 
+            "https://www.gdtv.cn/tvChannelDetail/54", "https://www.gdtv.cn/tvChannelDetail/66", "https://www.gdtv.cn/tvChannelDetail/42", 
+            "https://www.gdtv.cn/tvChannelDetail/15", "https://www.gdtv.cn/tvChannelDetail/13", "https://www.gdtv.cn/tvChannelDetail/74", 
+            "https://www.gdtv.cn/tvChannelDetail/100", "https://www.gdtv.cn/tvChannelDetail/94", "https://www.gdtv.cn/tvChannelDetail/99", 
+            "https://www.gdtv.cn/tvChannelDetail/75", "https://www.gdtv.cn/tvChannelDetail/102", "https://www.gdtv.cn/tvChannelDetail/104", 
+            "https://www.sztv.com.cn/pindao/index.html?id=7867", "https://www.sztv.com.cn/pindao/index.html?id=7868", 
+            "https://www.sztv.com.cn/pindao/index.html?id=7880", "https://www.sztv.com.cn/pindao/index.html?id=7874", 
+            "https://www.sztv.com.cn/pindao/index.html?id=7871", "https://www.sztv.com.cn/pindao/index.html?id=7872", 
+            "https://www.sztv.com.cn/pindao/index.html?id=7881", "https://www.sztv.com.cn/pindao/index.html?id=7869", 
+            "https://www.sztv.com.cn/pindao/index.html?id=7878", "https://www.sztv.com.cn/pindao/index.html?id=7944", 
+            "https://tv.gxtv.cn/channel/channelivePlay_e7a7ab7df9fe11e88bcfe41f13b60c62.html", "https://tv.gxtv.cn/channel/channelivePlay_f3335975f9fe11e88bcfe41f13b60c62.html", 
+            "https://tv.gxtv.cn/channel/channelivePlay_fdbaf085f9fe11e88bcfe41f13b60c62.html", "https://tv.gxtv.cn/channel/channelivePlay_5e923d82058e11e9ba67e41f13b60c62.html", 
+            "https://tv.gxtv.cn/channel/channelivePlay_9dfd8600075811e9ba67e41f13b60c62.html", "https://tv.gxtv.cn/channel/channelivePlay_bfa17b64157f11e999f0e41f13b60c62.html", 
+            "https://tv.gxtv.cn/channel/channelivePlay_ed58bc4a207811e999f0e41f13b60c62.html", "https://tv.gxtv.cn/channel/channelivePlay_78dbfd44e6b74ab687204d2d8113cbf5.html", 
+            "https://tv.gxtv.cn/channel/channelivePlay_ffa6b6e1b32b4a16a73eb3ef66f8bfc7.html", "https://tv.gxtv.cn/channel/channelivePlay_80d0ffb42c114eaf9663708629ff0a3e.html", 
+            "https://tv.gxtv.cn/channel/channelivePlay_67eace939278435bb4bca90800fb4225.html", "https://www.hebtv.com/19/19js/st/xdszb/index.shtml?index=0", 
+            "https://www.hebtv.com/19/19js/st/xdszb/index.shtml?index=1", "https://www.hebtv.com/19/19js/st/xdszb/index.shtml?index=2", 
+            "https://www.hebtv.com/19/19js/st/xdszb/index.shtml?index=3", "https://www.hebtv.com/19/19js/st/xdszb/index.shtml?index=4", 
+            "https://www.hebtv.com/19/19js/st/xdszb/index.shtml?index=5", "https://www.hebtv.com/19/19js/st/xdszb/index.shtml?index=6", 
+            "https://live.mgtv.com/?channelId=280", "https://live.mgtv.com/?channelId=344", "https://live.mgtv.com/?channelId=221", 
+            "https://live.mgtv.com/?channelId=346", "https://live.mgtv.com/?channelId=484", "https://live.mgtv.com/?channelId=316", 
+            "https://live.mgtv.com/?channelId=261", "https://live.mgtv.com/?channelId=287", "https://live.mgtv.com/?channelId=229", 
+            "https://live.mgtv.com/?channelId=329", "https://live.mgtv.com/?channelId=578", "https://live.mgtv.com/?channelId=218", 
+            "https://live.mgtv.com/?channelId=269", "https://live.mgtv.com/?channelId=254", "http://tc.hnntv.cn/", 
+            "https://www.hnntv.cn/live.html?playType=livePlay&channelId=5&referPage=home", "https://www.hnntv.cn/live.html?playType=livePlay&channelId=1&referPage=home", 
+            "https://www.hnntv.cn/live.html?playType=livePlay&channelId=3&referPage=home", "https://www.hnntv.cn/live.html?playType=livePlay&channelId=4&referPage=home", 
+            "https://www.hnntv.cn/live.html?playType=livePlay&channelId=6&referPage=home", "https://www.hnntv.cn/live.html?playType=livePlay&channelId=7&referPage=home", 
+            "http://live.snrtv.com/star", "http://live.snrtv.com/1", "http://live.snrtv.com/2", "http://live.snrtv.com/3", 
+            "http://www.snrtv.com/snr_dssps/a/2021/08/28/19915184.html", "http://live.snrtv.com/5", "http://live.snrtv.com/7", 
+            "http://live.snrtv.com/nl", "http://live.snrtv.com/11", "https://www.nmtv.cn/liveTv#0", "https://www.nmtv.cn/liveTv#1", 
+            "https://www.nmtv.cn/liveTv#2", "https://www.nmtv.cn/liveTv#3", "https://www.nmtv.cn/liveTv#4", 
+            "https://www.nmtv.cn/liveTv#5", "https://www.nmtv.cn/liveTv#6", "https://www.nmtv.cn/liveTv#7", 
+            "https://www.yntv.cn/live.html#0", "https://www.yntv.cn/live.html#1", "https://www.yntv.cn/live.html#2", 
+            "https://www.yntv.cn/live.html#3", "https://www.yntv.cn/live.html#4", "https://www.yntv.cn/live.html#5", 
+            "https://www.btzx.com.cn/special/bofang/btzxjmd/index.shtml", "https://www.sxrtv.com/tv/index.shtml#0", 
+            "https://www.sxrtv.com/tv/index.shtml#1", "https://www.sxrtv.com/tv/index.shtml#2", "https://www.sxrtv.com/tv/index.shtml#3", 
+            "https://www.sxrtv.com/tv/index.shtml#4", "https://www.sxrtv.com/tv/index.shtml#5" };
 
-    private final String[] channelNames = { "1 CCTV-1 综合", "2 CCTV-2 财经", "3 CCTV-3 综艺", "4 CCTV-4 中文国际（亚）",
-            "5 CCTV-5 体育", "6 CCTV-6 电影", "7 CCTV-7 国防军事", "8 CCTV-8 电视剧", "9 CCTV-9 纪录", "10 CCTV-10 科教",
-            "11 CCTV-11 戏曲", "12 CCTV-12 社会与法", "13 CCTV-13 新闻", "14 CCTV-14 少儿", "15 CCTV-15 音乐", "16 CCTV-16 奥林匹克",
-            "17 CCTV-17 农业农村", "18 CCTV-5+ 体育赛事", "19 CCTV-4 中文国际（欧）", "20 CCTV-4 中文国际（美）", "21 北京卫视", "22 江苏卫视",
-            "23 东方卫视", "24 浙江卫视", "25 湖南卫视", "26 湖北卫视", "27 广东卫视", "28 广西卫视", "29 黑龙江卫视", "30 海南卫视", "31 重庆卫视",
-            "32 深圳卫视", "33 四川卫视", "34 河南卫视", "35 福建东南卫视", "36 贵州卫视", "37 江西卫视", "38 辽宁卫视", "39 安徽卫视", "40 河北卫视",
-            "41 山东卫视", };
+        private final String[] channelNames = { "1 CCTV-1 综合", "2 CCTV-2 财经", "3 CCTV-3 综艺", "4 CCTV-4 中文国际（亚）", 
+            "5 CCTV-5 体育", "6 CCTV-5+ 体育赛事", "7 CCTV-6 电影", "8 CCTV-7 国防军事", "9 CCTV-8 电视剧", "10 CCTV-9 纪录", 
+            "11 CCTV-10 科教", "12 CCTV-11 戏曲", "13 CCTV-12 社会与法", "14 CCTV-13 新闻", "15 CCTV-14 少儿", "16 CCTV-15 音乐", 
+            "17 CCTV-16 奥林匹克", "18 CCTV-17 农业农村", "19 CCTV-4 中文国际（欧）", "20 CCTV-4 中文国际（美）", "21 CCTV4k", 
+            "22 CCTV风云剧场", "23 CCTV第一剧场", "24 CCTV怀旧剧场", "25 北京卫视", "26 江苏卫视", "27 东方卫视", "28 浙江卫视", 
+            "29 湖南卫视", "30 湖北卫视", "31 广东卫视", "32 广西卫视", "33 黑龙江卫视", "34 海南卫视", "35 重庆卫视", "36 深圳卫视", 
+            "37 四川卫视", "38 河南卫视", "39 福建东南卫视", "40 贵州卫视", "41 江西卫视", "42 辽宁卫视", "43 安徽卫视", "44 河北卫视", 
+            "45 山东卫视", "46 广东卫视", "47 广东珠江", "48 广东新闻", "49 广东民生", "50 广东体育", "51 大湾区卫视", "52 大湾区卫视（海外版）", 
+            "53 经济科教", "54 广东影视", "55 4K超高清", "56 广东少儿", "57 嘉佳卡通", "58 南方购物", "59 岭南戏曲", "60 现代教育", 
+            "61 广东移动", "62 荔枝台", "63 纪录片", "64 GRTN健康频道", "65 GRTN文化频道", "66 GRTN生活频道", "67 GRTN教育频道", 
+            "68 深圳卫视", "69 都市频道", "70 电视剧频道", "71 公共频道", "72 财经频道", "73 娱乐生活频道", "74 少儿频道", "75 移动电视", 
+            "76 宜和购物频道", "77 国际频道", "78 广西卫视", "79 综艺旅游频道", "80 都市频道", "81 影视频道", "82 新闻频道", "83 国际频道", 
+            "84 乐思购频道", "85 移动数字电视频道", "86 CETV1", "87 CETV2", "88 CETV4", "89 河北卫视", "90 经济生活", "91 农民频道", 
+            "92 河北都市", "93 河北影视剧", "94 少儿科教", "95 河北公共", "96 湖南经视", "97 湖南娱乐", "98 湖南电影", "99 湖南都市", 
+            "100 湖南电视剧", "101 金鹰纪实", "102 湖南爱晚", "103 金鹰卡通", "104 国际频道", "105 先锋乒羽", "106 茶频道", "107 快乐垂钓", 
+            "108 长沙综合", "109 长沙政法", "110 海南卫视", "111 三沙卫视", "112 海南自贸", "113 海南新闻", "114 海南公共", "115 海南文旅", 
+            "116 海南少儿", "117 陕西卫视", "118 新闻资讯", "119 都市青春", "120 生活频道", "121 影视频道", "122 公共频道", "123 体育休闲", 
+            "124 农林卫视", "125 移动电视", "126 内蒙古卫视", "127 蒙古语卫视", "128 新闻综合", "129 经济生活", "130 少儿频道", "131 文体娱乐", 
+            "132 农牧频道", "133 蒙古语文化", "134 云南卫视", "135 云南都市", "136 云南娱乐", "137 康旅频道", "138 澜湄国际", "139 云南少儿", 
+            "140 兵团卫视", "141 山西卫视", "142 黄河电视台", "143 山西经济与科技", "144 山西影视", "145 山西社会与法制", "146 山西文体生活" };
 
     private int currentLiveIndex;
 
@@ -249,12 +302,12 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout subMenuLocal = findViewById(R.id.subMenuLocal);
 
         // 中央台频道列表
-        String[] cctvChannels = {
-                "CCTV-1 综合", "CCTV-2 财经", "CCTV-3 综艺", "CCTV-4 中文国际（亚）",
-                "CCTV-5 体育", "CCTV-6 电影", "CCTV-7 国防军事", "CCTV-8 电视剧",
-                "CCTV-9 纪录", "CCTV-10 科教", "CCTV-11 戏曲", "CCTV-12 社会与法",
-                "CCTV-13 新闻", "CCTV-14 少儿", "CCTV-15 音乐", "CCTV-16 奥林匹克",
-                "CCTV-17 农业农村", "CCTV-5+ 体育赛事", "CCTV-4 中文国际（欧）", "CCTV-4 中文国际（美）"
+                String[] cctvChannels = {
+                "CCTV-1 综合", "CCTV-2 财经", "CCTV-3 综艺", "CCTV-4 中文国际（亚）", "CCTV-5 体育", "CCTV-5+ 体育赛事", 
+                "CCTV-6 电影", "CCTV-7 国防军事", "CCTV-8 电视剧", "CCTV-9 纪录", "CCTV-10 科教", "CCTV-11 戏曲", 
+                "CCTV-12 社会与法", "CCTV-13 新闻", "CCTV-14 少儿", "CCTV-15 音乐", "CCTV-16 奥林匹克", 
+                "CCTV-17 农业农村", "CCTV-4 中文国际（欧）", "CCTV-4 中文国际（美）", "CCTV4k", "CCTV风云剧场", "CCTV第一剧场", 
+                "CCTV怀旧剧场"
         };
 
         // 动态生成中央台按钮
@@ -275,11 +328,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 地方台频道列表
-        String[] localChannels = {
-                "北京卫视", "江苏卫视", "东方卫视", "浙江卫视", "湖南卫视", "湖北卫视",
-                "广东卫视", "广西卫视", "黑龙江卫视", "海南卫视", "重庆卫视", "深圳卫视",
-                "四川卫视", "河南卫视", "福建东南卫视", "贵州卫视", "江西卫视", "辽宁卫视",
-                "安徽卫视", "河北卫视", "山西卫视"
+                String[] localChannels = {
+                "北京卫视", "江苏卫视", "东方卫视", "浙江卫视", "湖南卫视", "湖北卫视", "广东卫视", "广西卫视", "黑龙江卫视", "海南卫视", 
+                "重庆卫视", "深圳卫视", "四川卫视", "河南卫视", "福建东南卫视", "贵州卫视", "江西卫视", "辽宁卫视", "安徽卫视", "河北卫视", 
+                "山东卫视", "广东卫视", "广东珠江", "广东新闻", "广东民生", "广东体育", "大湾区卫视", "大湾区卫视（海外版）", "经济科教", 
+                "广东影视", "4K超高清", "广东少儿", "嘉佳卡通", "南方购物", "岭南戏曲", "现代教育", "广东移动", "荔枝台", "纪录片", 
+                "GRTN健康频道", "GRTN文化频道", "GRTN生活频道", "GRTN教育频道", "深圳卫视", "都市频道", "电视剧频道", "公共频道", 
+                "财经频道", "娱乐生活频道", "少儿频道", "移动电视", "宜和购物频道", "国际频道", "广西卫视", "综艺旅游频道", "都市频道", "影视频道", 
+                "新闻频道", "国际频道", "乐思购频道", "移动数字电视频道", "CETV1", "CETV2", "CETV4", "河北卫视", "经济生活", 
+                "农民频道", "河北都市", "河北影视剧", "少儿科教", "河北公共", "湖南经视", "湖南娱乐", "湖南电影", "湖南都市", "湖南电视剧", 
+                "金鹰纪实", "湖南爱晚", "金鹰卡通", "国际频道", "先锋乒羽", "茶频道", "快乐垂钓", "长沙综合", "长沙政法", "海南卫视", 
+                "三沙卫视", "海南自贸", "海南新闻", "海南公共", "海南文旅", "海南少儿", "陕西卫视", "新闻资讯", "都市青春", "生活频道", 
+                "影视频道", "公共频道", "体育休闲", "农林卫视", "移动电视", "内蒙古卫视", "蒙古语卫视", "新闻综合", "经济生活", "少儿频道", 
+                "文体娱乐", "农牧频道", "蒙古语文化", "云南卫视", "云南都市", "云南娱乐", "康旅频道", "澜湄国际", "云南少儿", "兵团卫视", 
+                "山西卫视", "黄河电视台", "山西经济与科技", "山西影视", "山西社会与法制", "山西文体生活"
         };
 
         // 动态生成地方台按钮
@@ -442,7 +504,7 @@ public class MainActivity extends AppCompatActivity {
                 // 清空info
                 info = "";
 
-                if (currentLiveIndex <= 19) {
+                if (currentLiveIndex <= 23) {
                     // 获取节目预告和当前节目
                     view.evaluateJavascript("document.querySelector('#jiemu > li.cur.act').innerText", value -> {
                         // 处理获取到的元素值
@@ -458,7 +520,7 @@ public class MainActivity extends AppCompatActivity {
                             info += elementValueNext;
                         }
                     });
-                } else if (currentLiveIndex <= 40) {
+                } else if (currentLiveIndex <= 145) {
                     // 获取当前节目
                     view.evaluateJavascript(
                             "document.getElementsByClassName(\"tvSelectJiemu\")[0].innerHTML + \" \" + document.getElementsByClassName(\"tvSelectJiemu\")[1].innerHTML",
@@ -574,7 +636,7 @@ public class MainActivity extends AppCompatActivity {
                 // 清空info
                 info = "";
 
-                if (currentLiveIndex <= 19) {
+                if (currentLiveIndex <= 23) {
                     // 获取节目预告和当前节目
                     view.evaluateJavascript("document.querySelector('#jiemu > li.cur.act').innerText", value -> {
                         // 处理获取到的元素值
@@ -590,7 +652,7 @@ public class MainActivity extends AppCompatActivity {
                             info += elementValueNext;
                         }
                     });
-                } else if (currentLiveIndex <= 40) {
+                } else if (currentLiveIndex <= 145) {
                     // 获取当前节目
                     view.evaluateJavascript(
                             "document.getElementsByClassName(\"tvSelectJiemu\")[0].innerHTML + \" \" + document.getElementsByClassName(\"tvSelectJiemu\")[1].innerHTML",
@@ -697,7 +759,7 @@ public class MainActivity extends AppCompatActivity {
     // 获取 div 元素的 display 属性并执行相应的操作
     private void getDivDisplayPropertyAndDoSimulateTouch() {
         if (webView0 != null) {
-            if (currentLiveIndex <= 19) {
+            if (currentLiveIndex <= 23) {
                 webView0.evaluateJavascript("document.getElementById('play_or_pause_play_player').style.display",
                         value -> {
                             // 处理获取到的 display 属性值
@@ -706,7 +768,7 @@ public class MainActivity extends AppCompatActivity {
                                 simulateTouch(webView0, 0.5f, 0.5f);
                             }
                         });
-            } else if (currentLiveIndex <= 40) {
+            } else if (currentLiveIndex <= 145) {
                 String scriptPlay = """
                         try{
                         if(document.querySelector('.voice.on').style.display == 'none'){
@@ -765,9 +827,9 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case 1:
                             // 播放
-                            if (currentLiveIndex <= 19) {
+                            if (currentLiveIndex <= 23) {
                                 simulateTouch(getCurrentWebview(), 0.5f, 0.5f);
-                            } else if (currentLiveIndex <= 40) {
+                            } else if (currentLiveIndex <= 145) {
                                 String scriptPause = """
                                         try{
                                         document.querySelector('.play.play2').click();
@@ -795,9 +857,9 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                     """;
 
-                            if (currentLiveIndex <= 19) {
+                            if (currentLiveIndex <= 23) {
                                 getCurrentWebview().evaluateJavascript(script1, null);
-                            } else if (currentLiveIndex <= 40) {
+                            } else if (currentLiveIndex <= 145) {
                                 new Handler().postDelayed(() -> {
                                     getCurrentWebview().evaluateJavascript(script2, null);
                                 }, 500);
@@ -942,12 +1004,12 @@ public class MainActivity extends AppCompatActivity {
                     // 方向键,切换频道选择
                     if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
                         if (SubMenuCCTVSelectedIndex == 0) {
-                            SubMenuCCTVSelectedIndex = 19;
+                            SubMenuCCTVSelectedIndex = 23;
                         } else {
                             SubMenuCCTVSelectedIndex--;
                         }
                     } else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
-                        if (SubMenuCCTVSelectedIndex == 19) {
+                        if (SubMenuCCTVSelectedIndex == 23) {
                             SubMenuCCTVSelectedIndex = 0;
                         } else {
                             SubMenuCCTVSelectedIndex++;
@@ -989,12 +1051,12 @@ public class MainActivity extends AppCompatActivity {
                     // 方向键,切换频道选择
                     if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
                         if (SubMenuLocalSelectedIndex == 0) {
-                            SubMenuLocalSelectedIndex = 20;
+                            SubMenuLocalSelectedIndex = 121;
                         } else {
                             SubMenuLocalSelectedIndex--;
                         }
                     } else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
-                        if (SubMenuLocalSelectedIndex == 20) {
+                        if (SubMenuLocalSelectedIndex == 121) {
                             SubMenuLocalSelectedIndex = 0;
                         } else {
                             SubMenuLocalSelectedIndex++;
@@ -1006,7 +1068,7 @@ public class MainActivity extends AppCompatActivity {
                         || event.getKeyCode() == KeyEvent.KEYCODE_ENTER
                         || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
                     // 中间键,执行按钮操作
-                    currentLiveIndex = SubMenuLocalSelectedIndex + 20;
+                    currentLiveIndex = SubMenuLocalSelectedIndex + 24;
                     loadLiveUrl();
                     saveCurrentLiveIndex();
                     showChannelList();
@@ -1086,7 +1148,7 @@ public class MainActivity extends AppCompatActivity {
             DrawerLayoutDetailed.setVisibility(View.VISIBLE);
             DrawerLayout.setVisibility(View.VISIBLE);
             isDrawerOverlayVisible = true;
-            if (currentLiveIndex < 20) {
+            if (currentLiveIndex < 24) {
                 SubMenuCCTV.setVisibility(View.VISIBLE);
                 findViewById(R.id.CCTVScroll).setVisibility(View.VISIBLE);
                 SubMenuCCTV.getChildAt(currentLiveIndex).requestFocus();
@@ -1095,8 +1157,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 SubMenuLocal.setVisibility(View.VISIBLE);
                 findViewById(R.id.LocalScroll).setVisibility(View.VISIBLE);
-                SubMenuLocal.getChildAt(currentLiveIndex - 20).requestFocus();
-                SubMenuLocalSelectedIndex = currentLiveIndex - 20;
+                SubMenuLocal.getChildAt(currentLiveIndex - 24).requestFocus();
+                SubMenuLocalSelectedIndex = currentLiveIndex - 24;
                 DrawerLayoutSelectedIndex = 1;
             }
         } else {
@@ -1116,7 +1178,7 @@ public class MainActivity extends AppCompatActivity {
             DrawerLayoutDetailed.setVisibility(View.VISIBLE);
             DrawerLayout.setVisibility(View.VISIBLE);
             isDrawerOverlayVisible = true;
-            if (selectIndex < 20) {
+            if (selectIndex < 24) {
                 SubMenuCCTV.setVisibility(View.VISIBLE);
                 findViewById(R.id.CCTVScroll).setVisibility(View.VISIBLE);
                 SubMenuCCTV.getChildAt(selectIndex).requestFocus();
@@ -1125,8 +1187,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 SubMenuLocal.setVisibility(View.VISIBLE);
                 findViewById(R.id.LocalScroll).setVisibility(View.VISIBLE);
-                SubMenuLocal.getChildAt(selectIndex - 20).requestFocus();
-                SubMenuLocalSelectedIndex = selectIndex - 20;
+                SubMenuLocal.getChildAt(selectIndex - 24).requestFocus();
+                SubMenuLocalSelectedIndex = selectIndex - 24;
                 DrawerLayoutSelectedIndex = 1;
             }
         } else {
@@ -1205,7 +1267,7 @@ public class MainActivity extends AppCompatActivity {
 
             getCurrentWebview().setInitialScale(getMinimumScale());
             getCurrentWebview().loadUrl(liveUrls[currentLiveIndex]);
-            if (currentLiveIndex > 19) {
+            if (currentLiveIndex > 23) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
