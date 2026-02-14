@@ -67,7 +67,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginBottom="16dp"
-            android:text="正在切换频道..."
             android:textColor="#FFFFFF"
             android:textSize="36sp" />
 
@@ -78,7 +77,6 @@
             android:layout_centerInParent="true"
             android:layout_marginBottom="16dp"
             android:paddingTop="100dp"
-            android:text="当前程序运行在系统WebView上"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 

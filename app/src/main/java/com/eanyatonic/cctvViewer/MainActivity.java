@@ -213,8 +213,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        // 读取直接频道切换设置
-        enableDirectChannelChange = true;
+        // 读取直接频道切换设置 - 强制开启
+        enableDirectChannelChange = true; // sharedPreferences.getBoolean("direct_channel_change", false);
 
         // 读取直接返回设置
         enableDirectBack = sharedPreferences.getBoolean("direct_back", true);
@@ -365,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // Android 8.0+
             PackageInfo pkgInfo = WebView.getCurrentWebViewPackage();
             if (pkgInfo != null) {
-                CoreText.setText("当前程序运行在系统WebView上，版本号：" + pkgInfo.versionName);
+                // CoreText.setText("当前程序运行在系统WebView上，版本号：" + pkgInfo.versionName);
             }
         }
 
@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
             canLoadX5 = QbSdk.canLoadX5(getApplicationContext());
             Log.d("canLoadX5", String.valueOf(canLoadX5));
             if (canLoadX5) {
-                CoreText.setText("当前程序运行在腾讯X5内核上");
+                // CoreText.setText("当前程序运行在腾讯X5内核上");
             } else {
                 Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
                 startActivity(intent);
@@ -458,61 +458,36 @@ public class MainActivity extends AppCompatActivity {
                 // 页面加载时执行 JavaScript 脚本
                 view.evaluateJavascript(
                         """
-                function FastLoading() {
-                             const fullscreenBtn = document.querySelector('#player_pagefullscreen_yes_player') || document.querySelector('.videoFull');
-                             if (fullscreenBtn) return;
+                                function FastLoading() {
+                                             const fullscreenBtn = document.querySelector('#player_pagefullscreen_yes_player') || document.querySelector('.videoFull');
+                                             if (fullscreenBtn) return;
 
-                             // Hide common structural elements
-                             const tagsToHide = ['header', 'nav', 'footer', 'aside'];
-                             tagsToHide.forEach(tag => {
-                                 Array.from(document.getElementsByTagName(tag)).forEach(el => el.style.display = 'none');
-                             });
+                                             // 清空所有图片的 src 属性，阻止图片加载
+                                             Array.from(document.getElementsByTagName('img')).forEach(img => {
+                                                 img.remove();
+                                             });
 
-                             // Hide common class/id patterns for headers, footers, sidebars, ads
-                             const keywords = [
-                                 'header', 'footer', 'nav', 'menu', 'sidebar', 'banner', 'ad', 'ads', 'guanggao', 'gg',
-                                 'top', 'bottom', 'cookie', 'popup', 'app', 'download', 'login', 'register', 'search'
-                             ];
-                             
-                             // Loop through all divs and conreal if id/class contains keywords
-                             // (Targeting specific known classes from analysis)
-                             const specificSelectors = [
-                                 '.newmap', '.newtopbz', '.newtopbzTV', '.column_wrapper', // Existing
-                                 '.top-bar', '.bottom-bar', '.fixed-bar', // Common floating bars
-                                 '.qr-code', '.qrcode', // QR codes
-                                 '#gxtv-header', '#gxtv-footer' // Hypothetical specific ones
-                             ];
+                                             // 清空特定的脚本 src 属性
+                                             const scriptKeywords = ['login', 'index', 'daohang', 'grey', 'jquery'];
+                                             Array.from(document.getElementsByTagName('script')).forEach(script => {
+                                                 if (scriptKeywords.some(keyword => script.src.includes(keyword))) {
+                                                     script.src = '';
+                                                 }
+                                             });
 
-                             specificSelectors.forEach(sel => {
-                                  Array.from(document.querySelectorAll(sel)).forEach(el => el.style.display = 'none');
-                             });
+                                             // 清空具有特定 class 的 div 内容
+                                             const classNames = ['newmap', 'newtopbz', 'newtopbzTV', 'column_wrapper'];
+                                             classNames.forEach(className => {
+                                                 Array.from(document.getElementsByClassName(className)).forEach(div => {
+                                                     div.innerHTML = '';
+                                                 });
+                                             });
 
-                             // 清空所有图片的 src 属性，阻止图片加载
-                             Array.from(document.getElementsByTagName('img')).forEach(img => {
-                                 img.src = '';
-                             });
+                                             // 递归调用 FastLoading，每 4ms 触发一次
+                                             setTimeout(FastLoading, 4);
+                                         }
 
-                             // 清空特定的脚本 src 属性
-                             const scriptKeywords = ['login', 'index', 'daohang', 'grey', 'jquery'];
-                             Array.from(document.getElementsByTagName('script')).forEach(script => {
-                                 if (scriptKeywords.some(keyword => script.src.includes(keyword))) {
-                                     script.src = '';
-                                 }
-                             });
-
-                             // 清空具有特定 class 的 div 内容
-                             const classNames = ['newmap', 'newtopbz', 'newtopbzTV', 'column_wrapper'];
-                             classNames.forEach(className => {
-                                 Array.from(document.getElementsByClassName(className)).forEach(div => {
-                                     div.innerHTML = '';
-                                 });
-                             });
-
-                             // 递归调用 FastLoading，每 4ms 触发一次
-                             setTimeout(FastLoading, 4);
-                         }
-
-                         FastLoading();
+                                         FastLoading();
 
                                 """,
                         value -> {
@@ -589,7 +564,7 @@ public class MainActivity extends AppCompatActivity {
                     isChanging = false;
 
                     // 显示覆盖层，传入当前频道信息
-                    // showOverlay(channelNames[currentLiveIndex] + "\n" + info);
+                    showOverlay(channelNames[currentLiveIndex] + "\n" + info);
                 }, 500);
             }
         });
@@ -619,34 +594,9 @@ public class MainActivity extends AppCompatActivity {
                                              const fullscreenBtn = document.querySelector('#player_pagefullscreen_yes_player') || document.querySelector('.videoFull');
                                              if (fullscreenBtn) return;
 
-                                             // Hide common structural elements
-                                             const tagsToHide = ['header', 'nav', 'footer', 'aside'];
-                                             tagsToHide.forEach(tag => {
-                                                 Array.from(document.getElementsByTagName(tag)).forEach(el => el.style.display = 'none');
-                                             });
-
-                                             // Hide common class/id patterns for headers, footers, sidebars, ads
-                                             const keywords = [
-                                                 'header', 'footer', 'nav', 'menu', 'sidebar', 'banner', 'ad', 'ads', 'guanggao', 'gg',
-                                                 'top', 'bottom', 'cookie', 'popup', 'app', 'download', 'login', 'register', 'search'
-                                             ];
-                                             
-                                             // Loop through all divs and conreal if id/class contains keywords
-                                             // (Targeting specific known classes from analysis)
-                                             const specificSelectors = [
-                                                 '.newmap', '.newtopbz', '.newtopbzTV', '.column_wrapper', // Existing
-                                                 '.top-bar', '.bottom-bar', '.fixed-bar', // Common floating bars
-                                                 '.qr-code', '.qrcode', // QR codes
-                                                 '#gxtv-header', '#gxtv-footer' // Hypothetical specific ones
-                                             ];
-
-                                             specificSelectors.forEach(sel => {
-                                                  Array.from(document.querySelectorAll(sel)).forEach(el => el.style.display = 'none');
-                                             });
-
                                              // 清空所有图片的 src 属性，阻止图片加载
                                              Array.from(document.getElementsByTagName('img')).forEach(img => {
-                                                 img.src = '';
+                                                 img.remove();
                                              });
 
                                              // 清空特定的脚本 src 属性
@@ -749,7 +699,7 @@ public class MainActivity extends AppCompatActivity {
                     isChanging = false;
 
                     // 显示覆盖层，传入当前频道信息
-                    // showOverlay(channelNames[currentLiveIndex] + "\n" + info);
+                    showOverlay(channelNames[currentLiveIndex] + "\n" + info);
                 }, 1000);
             }
         });
@@ -1305,7 +1255,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadLiveUrl() {
         if (currentLiveIndex >= 0 && currentLiveIndex < liveUrls.length) {
             // 显示加载的View
-            // loadingOverlay.setVisibility(View.VISIBLE);
+            loadingOverlay.setVisibility(View.VISIBLE);
 
             isChanging = true;
 
@@ -1383,16 +1333,13 @@ public class MainActivity extends AppCompatActivity {
         upEvent.recycle();
     }
 
+    // 显示覆盖层，传入当前频道信息
     private void showOverlay(String channelInfo) {
-        // 设置覆盖层内容
-        overlayTextView.setText(channelInfo);
-
-        findViewById(R.id.overlayTextView).setVisibility(View.VISIBLE);
-
-        // 使用 Handler 延时隐藏覆盖层
-        new Handler().postDelayed(() -> {
-            findViewById(R.id.overlayTextView).setVisibility(View.GONE);
-        }, 8000);
+        // 禁用频道信息显示
+        // overlayTextView.setText(channelInfo);
+        // findViewById(R.id.overlayTextView).setVisibility(View.VISIBLE);
+        
+        // 保持 loadingOverlay 为黑色背景（如果需要的话），或者什么都不做
     }
 
     @Override
