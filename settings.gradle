@@ -12,5 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "央视浏览器"
+rootProject.name = "ModularCCTV"
 include ':app'
+include ':cctv-lib'

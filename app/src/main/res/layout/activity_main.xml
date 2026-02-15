@@ -1,304 +1,39 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_browse_fragment"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:deviceIds="tv"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/webViewContainer"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:descendantFocusability="blocksDescendants">
+        android:layout_weight="1" />
 
-        <com.tencent.smtt.sdk.WebView
-            android:id="@+id/webView0"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
-        <com.tencent.smtt.sdk.WebView
-            android:id="@+id/webView1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
-
+    <!-- Overlay Views can be added here or dynamically -->
+    <TextView
+        android:id="@+id/overlayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="-200dp"
+        android:background="#80000000"
+        android:padding="20dp"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/inputTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/webViewContainer"
-        android:layout_alignStart="@id/webViewContainer"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textSize="48sp"
-        android:textColor="#FFFFFF"
-        android:background="#80000000"/>
-
-    <TextView
-        android:id="@+id/overlayTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:textSize="24sp"
-        android:textColor="#FFFFFF"
-        android:padding="16dp"
-        android:gravity="center"
-        android:background="@drawable/rounded_background"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="#80000000"
+        android:padding="10dp"
+        android:textColor="#00FF00"
+        android:textSize="40sp"
         android:visibility="gone" />
 
-
-    <RelativeLayout
-        android:id="@+id/loadingOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#E0000000"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/loadingText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="16dp"
-            android:text="正在切换频道..."
-            android:textColor="#FFFFFF"
-            android:textSize="36sp" />
-
-        <TextView
-            android:id="@+id/CoreText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="16dp"
-            android:paddingTop="100dp"
-            android:text="当前程序运行在系统WebView上"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/menuOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#88000000"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:visibility="gone">
-
-        <!-- 刷新 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btnRefresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_selector"
-                android:focusable="true"
-                android:padding="8dp"
-                android:src="@drawable/refresh" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="刷新页面"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-        <!-- 播放 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btnPlay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_selector"
-                android:focusable="true"
-                android:padding="8dp"
-                android:src="@drawable/play" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="播放"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-        <!-- 全屏 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btnFullscreen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_selector"
-                android:focusable="true"
-                android:padding="8dp"
-                android:src="@drawable/fullscreen" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="切换全屏"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-        <!-- 放大 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btnZoomIn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_selector"
-                android:focusable="true"
-                android:padding="8dp"
-                android:src="@drawable/zoom_in" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="放大页面"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-        <!-- 缩小 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btnZoomOut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_selector"
-                android:focusable="true"
-                android:padding="8dp"
-                android:src="@drawable/zoom_out" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="缩小页面"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-        <!-- 设置 -->
-        <LinearLayout
-            android:layout_width="10dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btnExit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_selector"
-                android:focusable="true"
-                android:padding="8dp"
-                android:src="@drawable/settings" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="打开设置"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <!-- 一级菜单：大类 -->
-        <LinearLayout
-            android:id="@+id/DrawerLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="#88000000"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:padding="4dp"
-            android:visibility="gone">
-
-        </LinearLayout>
-
-        <!-- 二级菜单：详细频道 -->
-        <LinearLayout
-            android:id="@+id/DrawerLayoutDetailed"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="#88000000"
-            android:orientation="vertical"
-            android:padding="4dp"
-            android:visibility="gone">
-
-            <!-- 央视频道的二级菜单 -->
-            <ScrollView
-                android:id="@+id/CCTVScroll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:id="@+id/subMenuCCTV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </ScrollView>
-
-            <!-- 地方频道的二级菜单 -->
-            <ScrollView
-                android:id="@+id/LocalScroll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:id="@+id/subMenuLocal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </ScrollView>
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-
-</RelativeLayout>
+</LinearLayout>
